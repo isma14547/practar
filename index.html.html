@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practar Technologies.</title>
+    <!-- Tailwind CSS para un diseño moderno y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Estilos para el fondo de degradado animado */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-gradient-bg {
+            background: linear-gradient(-45deg, #6B73FF, #000DFF, #6B73FF, #000DFF);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+        }
+        
+        /* Efecto de sombra y transformación en las tarjetas de proyecto */
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Animación de entrada para los elementos */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación de rebote para las tarjetas */
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .fade-in-up {
+            animation: fade-in-up 1s ease-out;
+        }
+
+        .bounce-in {
+            animation: bounce-in 0.8s ease-out;
+        }
+
+        /* Media query para pantallas más pequeñas (móviles) */
+        @media (max-width: 767px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Estilos para el menú móvil */
+        .menu-mobile {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-mobile.open {
+            transform: translateX(0);
+        }
+
+        /* Ocultar elementos para animarlos al entrar en la vista */
+        .animated-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animated-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animación de rebote para las tarjetas al cargar */
+        .project-card.is-visible {
+            animation: bounce-in 0.8s ease-out;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Cabecera y Navegación -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-extrabold text-gray-800">
+                Practar<span class="text-blue-500">.</span>
+            </a>
+            <nav class="hidden md:flex space-x-6 text-gray-600 font-semibold">
+                <a href="#portfolio" class="hover:text-blue-500 transition-colors">Botoneras</a>
+                <a href="#diagrams" class="hover:text-blue-500 transition-colors">Diagramas</a>
+                <a href="#contact" class="hover:text-blue-500 transition-colors">Contacto</a>
+            </nav>
+            <button id="menu-button" class="md:hidden focus:outline-none">
+                <svg class="h-8 w-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menú deslizable para móviles -->
+    <nav id="menu-mobile" class="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-6 z-50 md:hidden menu-mobile">
+        <div class="flex justify-end">
+            <button id="close-menu-button" class="text-gray-800 focus:outline-none">
+                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col space-y-4 mt-8">
+            <li><a href="#portfolio" class="text-lg font-semibold hover:text-blue-500 transition-colors">Botoneras</a></li>
+            <li><a href="#diagrams" class="text-lg font-semibold hover:text-blue-500 transition-colors">Diagramas</a></li>
+            <li><a href="#contact" class="text-lg font-semibold hover:text-blue-500 transition-colors">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Sección de Héroe -->
+        <section class="hero-gradient-bg py-8 md:py-24 text-center text-white relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 fade-in-up">
+                    Practar<span class="text-yellow-300"></span> Technologies<span class="text-green-300"></span>.
+                </h1>
+                <p class="text-base md:text-2xl font-light max-w-4xl mx-auto mb-8 fade-in-up">
+                    Somos una empresa especializada en el desarrollo y fabricación de productos audiovisuales y de control.
+                    Desde mayo de 2020, ofrecemos servicios de programación y puesta a punto para las marcas Crestron, QSC, Biamp y MuxLab.
+                </p>
+                <a href="#portfolio" class="inline-block bg-white text-blue-500 font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
+                    Ver Portafolio
+                </a>
+            </div>
+        </section>
+
+        <!-- Sección de Productos (anteriormente Portafolio) -->
+        <section id="portfolio" class="container mx-auto px-4 py-12">
+            <h2 class="text-4xl font-bold text-center mb-12 animated-element">Nuestro <span class="text-blue-500">Productos</span></h2>
+            <div class="portfolio-grid grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Tarjeta de Proyecto 1 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Proyecto de marca de café" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Botv2</h3>
+                        <a href="Botv2.pdf" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 2 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="v3.jpg" alt="App de Meditación" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Botv3</h3>
+                        <a href="Botv3.pdf" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                        Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 3 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv4.jpg" alt="Landing Page" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Botv4</h3>
+                        <a href="botv4.pdf" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 4 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="AMP_D01.jpg" alt="E-Commerce" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">AMP_D01</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 5 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="flotador.jpg" alt="Rediseño de Web" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Flotador</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 6 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="hdmiequ.JPG" alt="Diseño de App" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Hdmiequ</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 7 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="termbox.JPG" alt="Diseño de logo" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Termbox</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Sección de Diagramas (anteriormente Portafolio) -->
+        <section id="diagrams" class="container mx-auto px-4 py-12">
+            <h2 class="text-4xl font-bold text-center mb-12 animated-element">Diagrama de<span class="text-blue-500"> Conexiones</span></h2>
+            <div class="portfolio-grid grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Tarjeta de Proyecto 8 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Branding digital" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Conexión proyector 232 y pantalla eléctrica</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 9 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Ilustraciones para libro" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Conexión para encadenar botoneras</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 10 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Rediseño de UX" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Conexión proyector 232 y switcher contacto seco</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 11 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Video promocional" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Conexión proyector 232, pantalla y amplificador</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                <!-- Tarjeta de Proyecto 12 - Nueva -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 flex flex-col justify-between animated-element">
+                    <img src="botv3.png" alt="Campaña de Marketing Digital" class="w-full h-auto object-cover">
+                    <div class="p-6 text-center flex flex-col justify-end items-center">
+                        <h3 class="text-2xl font-semibold mb-2">Conexión amplificador</h3>
+                        <a href="#" class="inline-block bg-black text-white font-bold py-2 px-6 rounded-full hover:bg-gray-700 transition-colors mt-4 whitespace-nowrap md:w-auto">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Sección de Contacto con estilo de tarjeta -->
+        <section id="contact" class="container mx-auto px-4 py-12 flex justify-center items-center">
+            <div class="bg-white rounded-xl shadow-xl flex flex-col md:flex-row max-w-8xl w-full overflow-hidden animated-element">
+                <!-- Imagen en el lado izquierdo de la tarjeta -->
+                <div class="w-full md:w-1/2">
+                    <img src="Contactanos.png" alt="Envíanos un mensaje" class="w-full h-full object-cover">
+                </div>
+                <!-- Contenido del lado derecho con los botones -->
+                <div class="w-full md:w-1/2 p-12 flex flex-col items-center justify-center">
+                    <h2 class="text-4xl font-bold mb-8 text-gray-800 text-center">Envíanos un mensaje</h2>
+                    <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8 w-full">
+                        <!-- Botón de WhatsApp -->
+                        <a href="https://wa.me/5549285616" target="_blank" class="inline-flex items-center justify-center bg-green-500 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform transform hover:scale-105 w-full md:w-auto text-lg">
+                        <img src="whatsapp.png" alt="icono" class="h-8 w-8 mr-4">
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 6.012 4.025 11.168 9.563 11.986l.666-.666c-5.02-1.39-8.487-5.914-8.487-11.32a9.99 9.99 0 0110.027-9.988c5.448 0 9.873 4.425 9.873 9.873c0 4.482-2.99 8.283-7.143 9.48l.643.642c4.767-1.144 8.287-5.658 8.287-10.822C24 5.373 18.627 0 12 0zM17.152 14.52c-.414-.414-1.085-.414-1.498 0l-2.025 2.025a.75.75 0 01-.53.22h-.002c-.198 0-.39-.079-.53-.22l-1.996-1.996c-.414-.414-1.085-.414-1.498 0l-2.025 2.025c-.414.414-.414 1.085 0 1.498l1.792 1.792c.624.624 1.458.948 2.292.948h.01c.834 0 1.668-.324 2.292-.948l1.792-1.792c.414-.414.414-1.085 0-1.498z" fill="#fff"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+                        <!-- Botón de Correo -->
+                        <a href="mailto:josecopo@gmail.com" class="inline-flex items-center justify-center bg-blue-500 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform transform hover:scale-105 w-full md:w-auto text-lg">
+                            <img src="correo.png" alt="icono" class="h-8 w-8 mr-4">
+                                <path d="M22 4H2c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1.8 2L12 11.2 3.8 6h16.4zm-16.4 12V8.6l7.4 5.2c.2.1.4.2.6.2s.4-.1.6-.2l7.4-5.2V18H3.8z"/>
+                            </svg>
+                            Correo
+                        </a>
+                    </div>
+                    <!-- Comentario para el usuario -->
+                    <p class="mt-6 text-gray-600 text-base text-center">
+                        Comunícate y recibe atención personalizada. Para más información, escríbenos a josecopo@gmail.com
+                        o envíanos un WhatsApp al 55 4928 5616 y obtén respuesta inmediata.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <div class="container mx-auto px-4">
+            <p class="text-sm">&copy; 2024 Practar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Lógica para el menú deslizable
+        const menuButton = document.getElementById('menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('menu-mobile');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+        
+        // Cierre del menú al hacer clic en un enlace
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lógica para la animación de las secciones al hacer scroll
+        const animatedElements = document.querySelectorAll('.animated-element, .project-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
